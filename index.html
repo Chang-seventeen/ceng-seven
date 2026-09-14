@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI 东南亚广告投放健康度与预算分配工作台。本地合成数据演示。" />
+    <title>SEA Ads Control Room · 预算健康工作台</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23091525'/%3E%3Cpath d='M14 42 27 28l9 8 14-17' fill='none' stroke='%235eead4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='19' r='5' fill='%23fbbf24'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="splash-screen" id="splash-screen" role="button" tabindex="0" aria-label="进入工作台" hidden style="display: none">
+      <div class="splash-backdrop" aria-hidden="true"></div>
+      <canvas class="splash-particles" id="splash-particles" aria-hidden="true"></canvas>
+      <div class="splash-stage" id="splash-stage" aria-hidden="true">
+        <img class="splash-background" src="assets/crystal-coin-splash-clean-background.png" alt="" />
+        <img class="splash-hand" id="splash-hand" src="assets/crystal-coin-splash-hand-layer.png" alt="" />
+        <div class="splash-coin-anchor" id="splash-coin-anchor">
+          <div class="splash-coin-model" id="splash-coin-model">
+            <span class="splash-coin-edge"></span>
+            <svg class="splash-coin-face splash-coin-front" viewBox="0 0 240 300" aria-hidden="true">
+              <defs><radialGradient id="coin-core-front" cx="32%" cy="22%" r="78%"><stop offset="0" stop-color="#fff"/><stop offset=".26" stop-color="#bff2ff" stop-opacity=".92"/><stop offset=".64" stop-color="#55bde7" stop-opacity=".47"/><stop offset="1" stop-color="#07527e" stop-opacity=".34"/></radialGradient><linearGradient id="coin-rim-front" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".38" stop-color="#8ce5ff"/><stop offset=".75" stop-color="#e5fbff"/><stop offset="1" stop-color="#42a8dc"/></linearGradient></defs>
+              <ellipse cx="120" cy="150" rx="99" ry="126" fill="#63cfff" opacity=".11"/><ellipse cx="120" cy="150" rx="91" ry="117" fill="url(#coin-core-front)" stroke="url(#coin-rim-front)" stroke-width="8"/><ellipse cx="120" cy="150" rx="78" ry="102" fill="none" stroke="#e9fcff" stroke-opacity=".72" stroke-width="2"/>
+              <g fill="#d8f8ff" fill-opacity=".28" stroke="#effdff" stroke-opacity=".78" stroke-width="2" stroke-linejoin="round"><path d="M120 48 163 89 144 130 120 112 96 130 77 89Z"/><path d="m77 89 43 23-39 37-22-42Z"/><path d="m163 89 18 18-22 42-39-37Z"/><path d="m81 149 39-37 23 42-23 39Z"/><path d="m159 149-39-37-23 42 23 39Z"/><path d="m97 154 23 39-39 42-18-57Z"/><path d="m143 154-23 39 39 42 18-57Z"/><path d="m120 193 39 42-39 30-39-30Z"/></g>
+              <g fill="none" stroke="#f5feff" stroke-linecap="round"><path d="M51 130c22-15 43-20 69-18 27-2 48 3 69 18" stroke-opacity=".72" stroke-width="2"/><path d="M47 170c25 12 49 17 73 17 25 0 49-5 73-17" stroke-opacity=".45" stroke-width="2"/><path d="M120 48v217M59 107l62 86 60-86M63 178l57 15 57-15" stroke-opacity=".44" stroke-width="1.6"/></g><ellipse cx="94" cy="83" rx="19" ry="30" fill="#fff" opacity=".42"/><path d="M49 104c18-45 49-70 80-72" fill="none" stroke="#fff" stroke-opacity=".82" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <svg class="splash-coin-face splash-coin-back" viewBox="0 0 240 300" aria-hidden="true">
+              <defs><radialGradient id="coin-core-back" cx="68%" cy="24%" r="78%"><stop offset="0" stop-color="#effcff"/><stop offset=".26" stop-color="#9fe9ff" stop-opacity=".82"/><stop offset=".64" stop-color="#4aabd8" stop-opacity=".43"/><stop offset="1" stop-color="#063e66" stop-opacity=".34"/></radialGradient><linearGradient id="coin-rim-back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78cbed"/><stop offset=".45" stop-color="#ecfdff"/><stop offset="1" stop-color="#4ba8d5"/></linearGradient></defs>
+              <ellipse cx="120" cy="150" rx="99" ry="126" fill="#63cfff" opacity=".1"/><ellipse cx="120" cy="150" rx="91" ry="117" fill="url(#coin-core-back)" stroke="url(#coin-rim-back)" stroke-width="8"/><ellipse cx="120" cy="150" rx="78" ry="102" fill="none" stroke="#e9fcff" stroke-opacity=".64" stroke-width="2"/>
+              <g fill="#b9ebff" fill-opacity=".22" stroke="#effdff" stroke-opacity=".67" stroke-width="2" stroke-linejoin="round"><path d="M120 48 163 89 144 130 120 112 96 130 77 89Z"/><path d="m77 89 43 23-39 37-22-42Z"/><path d="m163 89 18 18-22 42-39-37Z"/><path d="m81 149 39-37 23 42-23 39Z"/><path d="m159 149-39-37-23 42 23 39Z"/><path d="m97 154 23 39-39 42-18-57Z"/><path d="m143 154-23 39 39 42 18-57Z"/><path d="m120 193 39 42-39 30-39-30Z"/></g>
+              <g fill="none" stroke="#effcff" stroke-linecap="round"><path d="M51 130c22-15 43-20 69-18 27-2 48 3 69 18" stroke-opacity=".62" stroke-width="2"/><path d="M47 170c25 12 49 17 73 17 25 0 49-5 73-17" stroke-opacity=".42" stroke-width="2"/><path d="M120 48v217M59 107l62 86 60-86M63 178l57 15 57-15" stroke-opacity=".4" stroke-width="1.6"/></g><ellipse cx="146" cy="84" rx="16" ry="26" fill="#fff" opacity=".27"/>
+            </svg>
+          </div>
+          <span class="splash-coin-glow"></span>
+        </div>
+      </div>
+      <p class="splash-enter-hint">Click anywhere to enter</p>
+    </section>
+
+    <section class="split-splash" id="split-splash" role="button" tabindex="0" aria-label="点击进入工作台">
+      <div class="split-splash-grid" aria-hidden="true"></div>
+      <div class="split-splash-content">
+        <p class="split-splash-kicker">SEA ADS · DECISION SYSTEM</p>
+        <h1 class="split-splash-title" id="split-splash-title">SEA Ads Control Room</h1>
+        <p class="split-splash-subtitle" id="split-splash-subtitle">东南亚广告健康与预算分配工作台</p>
+      </div>
+      <p class="split-splash-hint" id="split-splash-hint">Click anywhere to enter</p>
+    </section>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">↗</div>
+          <div>
+            <p class="eyebrow">SYNTHETIC DEMO · FIXED FX 2026-09-01</p>
+            <h1>SEA Ads <span>Control Room</span></h1>
+          </div>
+        </div>
+        <div class="topbar-meta">
+          <span class="status-pill"><i></i> 本地演示数据</span>
+          <button class="text-button" id="open-data-notes">数据与口径</button>
+        </div>
+      </header>
+
+      <section class="filterbar" aria-label="数据筛选">
+        <label class="date-range-control">开始日期 <input type="date" id="start-date-filter" aria-label="选择开始日期" /></label>
+        <label class="date-range-control">结束日期 <input type="date" id="end-date-filter" aria-label="选择结束日期" /></label>
+        <label>国家 <select id="country-filter" aria-label="选择国家"></select></label>
+        <label>平台 <select id="platform-filter" aria-label="选择平台"></select></label>
+        <label>账户 <select id="account-filter" aria-label="选择账户"></select></label>
+        <label>活动 <select id="campaign-filter" aria-label="选择活动"></select></label>
+        <div class="date-presets" role="group" aria-label="快捷日期范围">
+          <button class="range-button" data-range-days="3">近3天</button>
+          <button class="range-button" data-range-days="7">近7天</button>
+          <button class="range-button" data-range-days="14">近14天</button>
+          <button class="range-button" data-range-days="0">全周期</button>
+        </div>
+        <div class="currency-toggle" role="group" aria-label="币种显示">
+          <button class="currency-option active" data-currency="USD">USD</button>
+          <button class="currency-option" data-currency="LOCAL">原币</button>
+        </div>
+      </section>
+
+      <section class="question-strip" aria-labelledby="workspace-question">
+        <div>
+          <p class="eyebrow">面试演示视角</p>
+          <h2 id="workspace-question">哪一处 ROI 风险最高，证据在哪里，预算应暂缓还是调整？</h2>
+        </div>
+        <div class="question-note" id="selection-summary"></div>
+      </section>
+
+      <section class="decision-banner" id="decision-banner" aria-live="polite" aria-label="当前决策总览"></section>
+
+      <section class="kpi-grid" id="kpi-grid" aria-label="关键指标"></section>
+      <section class="data-readiness" id="data-readiness" aria-live="polite" aria-label="数据新鲜度与归因成熟度"></section>
+      <section class="data-quality-center" id="data-quality-center" aria-live="polite" aria-label="数据质量中心"></section>
+
+      <section class="dashboard-grid top-grid">
+        <article class="panel span-7">
+          <div class="panel-heading">
+            <div><p class="eyebrow">CROSS-MARKET RISK</p><h3>跨市场风险排序</h3></div>
+            <span class="subtle-label">结束日异常快照 · 点击查看证据</span>
+          </div>
+          <div id="risk-table" class="risk-table"></div>
+        </article>
+        <article class="panel span-5">
+          <div class="panel-heading">
+            <div><p class="eyebrow">ACCOUNT ELIGIBILITY</p><h3>账户健康</h3></div>
+            <span class="subtle-label">结束日：余额 / 授权 / 素材</span>
+          </div>
+          <div id="health-cards" class="health-list"></div>
+        </article>
+      </section>
+
+      <section class="panel confirmation-panel" aria-labelledby="confirmation-title">
+        <div class="panel-heading">
+          <div><p class="eyebrow">HUMAN CONFIRMATION</p><h3 id="confirmation-title">待确认工作流</h3></div>
+          <span class="subtle-label">本地状态 · 不触发真实投放动作</span>
+        </div>
+        <div id="confirmation-list" class="confirmation-list"></div>
+      </section>
+
+      <section class="dashboard-grid chart-grid">
+        <article class="panel span-7">
+          <div class="panel-heading"><div><p class="eyebrow">EFFECT TREND</p><h3>ROI 与费比双趋势</h3></div><span class="legend"><b></b>ROI <b class="amber"></b>费比</span></div>
+          <div class="chart-wrap" id="effect-chart" aria-label="ROI与费比趋势图"></div>
+          <div class="inline-callout" id="effect-callout"></div>
+        </article>
+        <article class="panel span-5">
+          <div class="panel-heading"><div><p class="eyebrow">BUDGET PACE</p><h3>区间累计实际 / 计划预算</h3></div><span class="legend"><b></b>实际 <b class="blue"></b>计划</span></div>
+          <div class="chart-wrap pace-chart-wrap" id="pace-chart" aria-label="累计实际与计划预算、累计预算执行率趋势图"></div>
+          <div class="pace-reading" id="pace-reading" aria-live="polite"></div>
+          <div class="inline-callout" id="pace-callout"></div>
+        </article>
+      </section>
+
+      <section class="panel activity-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">CAMPAIGN → ASSET / LIVE</p><h3>活动表现与供给下钻</h3></div>
+          <span class="subtle-label">区间汇总 · 结束日素材/直播下钻</span>
+        </div>
+        <div class="table-scroll"><table>
+          <thead><tr><th>活动</th><th>市场 / 平台</th><th>区间花费</th><th>区间 ROI</th><th>近3天变化</th><th>可用素材</th><th>预算资格</th><th></th></tr></thead>
+          <tbody id="activity-table"></tbody>
+        </table></div>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel simulation-panel" id="simulation-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">BUDGET SCENARIO · USD 15,000 / 日</p><h3>风险优先的预算情景</h3></div>
+            <button class="primary-button" id="generate-scenario">生成情景</button>
+          </div>
+          <div id="scenario-content" class="scenario-placeholder">从异常证据抽屉或此处生成情景。结果仅为满足护栏的假设分配，不会执行真实调预算。</div>
+        </article>
+        <article class="panel report-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">AI WEEKLY NOTE</p><h3>证据化周报草案</h3></div>
+            <button class="secondary-button" id="generate-report" disabled>生成周报</button>
+          </div>
+          <div id="report-content" class="report-placeholder">先生成预算情景，周报将引用指标、健康证据、假设和待确认事项。</div>
+        </article>
+      </section>
+
+      <section class="panel decision-log-panel" aria-labelledby="decision-log-title">
+        <div class="panel-heading">
+          <div><p class="eyebrow">LOCAL DECISION LOG</p><h3 id="decision-log-title">本地决策记录与版本对比</h3></div>
+          <button class="secondary-button" id="clear-decision-records">清除本地记录</button>
+        </div>
+        <div id="decision-log-content" class="decision-log-content">生成预算情景后，会在当前浏览器保存一份匿名合成数据的决策快照。</div>
+      </section>
+
+      <footer class="footer-note">全合成匿名数据 · 不连接广告后台 · 不执行真实预算调整 · ROI 为平台归因 GMV ÷ 花费，不代表真实增量 ROI。</footer>
+    </main>
+
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+    <aside class="drawer" id="evidence-drawer" aria-label="证据抽屉" aria-hidden="true">
+      <div class="drawer-header"><div><p class="eyebrow" id="drawer-kicker">EVIDENCE</p><h2 id="drawer-title">证据详情</h2></div><button class="icon-button" id="close-drawer" aria-label="关闭证据抽屉">×</button></div>
+      <div class="drawer-body" id="drawer-body"></div>
+    </aside>
+
+    <script src="data/demo-data.js"></script>
+    <script src="app.js"></script>
+    <script src="split-text.js"></script>
+  </body>
+</html>
